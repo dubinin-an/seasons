@@ -1,39 +1,34 @@
-// const moment = require("moment");
-import moment from 'moment'
+module.exports =   {
+  springEquinox,
+  summerSolstice,
+  autumnEquinox,
+  winterSolstice
+};
 
-export class Seasons {
-  constructor(year = new Date().getFullYear()) {
-    this.year = year;
-    // y = (year - 2000.0)/1000.0;
+function springEquinox(year = new Date().getFullYear()){
+  const march = (y) => {
+    return 2451623.80984 + 365242.37404*y + 0.05169*y*y - 0.00411*y*y*y - 0.00057*y*y*y*y
   }
-
-  springEquinox(){
-    const march = (y) => {
-      return 2451623.80984 + 365242.37404*y + 0.05169*y*y - 0.00411*y*y*y - 0.00057*y*y*y*y
-    }
-    return calculateEquinoxOrSolstice(this.year, march)
-  }
-  summerSolstice(){
-    const june = (y) => {
-      return 2451716.56767 + 365241.62603*y + 0.00325*y*y + 0.00888*y*y*y - 0.00030*y*y*y*y
-    }
-    return calculateEquinoxOrSolstice(this.year, june)
-  }
-  autumnEquinox(){
-    const september = (y) => {
-      return 2451810.21715 + 365242.01767*y - 0.11575*y*y + 0.00337*y*y*y + 0.00078*y*y*y*y
-    }
-    return calculateEquinoxOrSolstice(this.year, september)
-  }
-  winterSolstice(){
-    const december = (y) => {
-      return 2451900.05952 + 365242.74049*y - 0.06223*y*y - 0.00823*y*y*y + 0.00032*y*y*y*y
-    }
-    return calculateEquinoxOrSolstice(this.year, december)
-  }
-
+  return calculateEquinoxOrSolstice(year, march)
 }
-
+function summerSolstice(year = new Date().getFullYear()){
+  const june = (y) => {
+    return 2451716.56767 + 365241.62603*y + 0.00325*y*y + 0.00888*y*y*y - 0.00030*y*y*y*y
+  }
+  return calculateEquinoxOrSolstice(year, june)
+}
+function autumnEquinox(year = new Date().getFullYear()){
+  const september = (y) => {
+    return 2451810.21715 + 365242.01767*y - 0.11575*y*y + 0.00337*y*y*y + 0.00078*y*y*y*y
+  }
+  return calculateEquinoxOrSolstice(year, september)
+}
+function winterSolstice(year = new Date().getFullYear()){
+  const december = (y) => {
+    return 2451900.05952 + 365242.74049*y - 0.06223*y*y - 0.00823*y*y*y + 0.00032*y*y*y*y
+  }
+  return calculateEquinoxOrSolstice(year, december)
+}
 
 const degrees = Math.PI / 180.0;
 function roundf(x) {
@@ -90,8 +85,6 @@ function calculateEquinoxOrSolstice(year, fn) {
     hour = hour + 1
   }
 
-  // console.log('calculateEquinoxOrSolstice', year, month, day, hour, minute)
-  return moment(`${year}-${month}-${day} ${hour}:${minute} +0000`, "YYYY-MM-DD HH:mm Z").toDate()
-
-  // return time.Date(year, time.Month(month), day, hour, minute, 0, 0, time.UTC)
+  console.log('calculateEquinoxOrSolstice', year, month, day, hour, minute)
+  return new Date(`${year}-${month}-${day} ${hour}:${minute} +0000`);
 }
